@@ -39,11 +39,11 @@ class UART(GreatFETInterface):
         self.data_bits   = data_bits
         self.stop_bits   = stop_bits
         self.parity      = parity or self.PARITY_NONE
-        self.uart_number = 0
+        self.uart_number = uart_number
         self.actual_baud = 0
 
 
-    def update_parameters(self, baud=None, data_bits=None, stop_bits=None, parity=None):
+    def update_parameters(self, baud=None, data_bits=None, stop_bits=None, parity=None, uart_number=0):
         """ Updates the UART parameters for the provided board.
 
         This is intended to be used by providing one or more keyword arguments:
@@ -60,6 +60,7 @@ class UART(GreatFETInterface):
         self.data_bits   = data_bits if (data_bits is not None) else self.data_bits
         self.stop_bits   = stop_bits if (stop_bits is not None) else self.stop_bits
         self.parity      = parity if (parity is not None) else self.parity
+        self.uart_number = uart_number if (uart_number is not None) else self.uart_number
 
         # Set up the relevant UART.
         self.actual_baud = self.api.initialize(self.uart_number, self.baud, self.data_bits, self.parity, self.stop_bits)
